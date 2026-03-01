@@ -1,0 +1,68 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Seb Frampton | Web Developer Perth, WA",
+  description = "Web developer in Perth, WA specializing in WordPress, custom websites, and speed optimization. Fast, responsive sites that convert.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Seb Frampton" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://sebframpton.github.io" />
+    <meta property="og:locale" content="en_AU" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- JSON-LD Person Schema -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Seb Frampton",
+        jobTitle: "Web Developer",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Perth",
+          addressRegion: "WA",
+          addressCountry: "AU",
+        },
+        url: "https://sebframpton.github.io",
+        sameAs: [
+          "https://github.com/sebframpton",
+          "https://www.linkedin.com/in/sebastian-frampton-34564012a/",
+        ],
+      })}
+    />
+
+    <style>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body class="min-h-screen bg-background text-text">
+    <slot />
+  </body>
+</html>
