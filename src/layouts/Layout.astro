@@ -1,0 +1,116 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Seb Frampton | Web Developer Perth, WA",
+  description = "Web developer in Perth, WA specializing in WordPress, custom websites, and speed optimization. Fast, responsive sites that convert.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Seb Frampton" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://sebframpton.github.io" />
+    <meta property="og:locale" content="en_AU" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <title>{title}</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- JSON-LD Person Schema -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Seb Frampton",
+        jobTitle: "Web Developer",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Perth",
+          addressRegion: "WA",
+          addressCountry: "AU",
+        },
+        url: "https://sebframpton.github.io",
+        sameAs: [
+          "https://github.com/sebframpton",
+          "https://www.linkedin.com/in/sebastian-frampton-34564012a/",
+        ],
+      })}
+    />
+
+    <style>
+      @import "../styles/global.css";
+    </style>
+  </head>
+  <body class="min-h-screen bg-background text-text">
+    <slot />
+
+    <!-- Scroll reveal observer -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("revealed");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // Animated counters
+      const countObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              const target = el.dataset.count || "0";
+              const suffix = el.dataset.suffix || "";
+              const prefix = el.dataset.prefix || "";
+              const num = parseInt(target);
+              const duration = 1500;
+              const start = performance.now();
+              const animate = (now: number) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = prefix + Math.round(num * eased) + suffix;
+                if (progress < 1) requestAnimationFrame(animate);
+              };
+              requestAnimationFrame(animate);
+              countObserver.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      document
+        .querySelectorAll("[data-count]")
+        .forEach((el) => countObserver.observe(el));
+    </script>
+  </body>
+</html>

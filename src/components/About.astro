@@ -1,0 +1,128 @@
+---
+const skills = [
+  { name: "HTML", level: 95 },
+  { name: "CSS", level: 90 },
+  { name: "JavaScript", level: 85 },
+  { name: "WordPress", level: 90 },
+  { name: "PHP", level: 80 },
+  { name: "Astro", level: 75 },
+  { name: "Tailwind CSS", level: 90 },
+  { name: "SEO", level: 85 },
+];
+
+const stats = [
+  { value: 20, suffix: "+", label: "Projects Delivered" },
+  { value: 95, suffix: "+", label: "Avg. Lighthouse Score" },
+  { value: 100, suffix: "%", label: "Client Satisfaction" },
+];
+---
+
+<section id="about" class="py-24 bg-surface relative overflow-hidden">
+  <!-- Background decoration -->
+  <div
+    class="absolute -top-40 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
+  >
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <!-- Section Header -->
+    <div class="text-center mb-16 reveal">
+      <span
+        class="inline-block px-4 py-1.5 bg-primary/10 text-primary text-sm font-semibold rounded-full mb-4 tracking-wide uppercase"
+      >
+        About Me
+      </span>
+      <h2
+        class="text-3xl sm:text-4xl font-extrabold text-secondary tracking-tight"
+      >
+        Hey, I'm <span class="text-primary">Seb</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <!-- Left: Bio -->
+      <div class="reveal reveal-delay-1">
+        <div class="prose prose-slate max-w-none">
+          <p class="text-text-light text-lg leading-relaxed mb-4">
+            I'm a web developer based in <strong class="text-secondary"
+              >Perth, Western Australia</strong
+            >, passionate about building fast, responsive websites that help
+            businesses grow online.
+          </p>
+          <p class="text-text-light leading-relaxed mb-4">
+            With experience across WordPress, custom HTML/CSS/JS builds, and
+            modern frameworks like Astro, I deliver sites that not only look
+            great but perform exceptionally — with top-tier SEO, accessibility,
+            and Core Web Vitals scores.
+          </p>
+          <p class="text-text-light leading-relaxed mb-8">
+            Whether you're a small business needing your first website or an
+            established company looking for a speed overhaul, I'm here to help
+            you get real results from your web presence.
+          </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4">
+          {
+            stats.map((stat) => (
+              <div class="text-center p-4 bg-background rounded-xl border border-border/60">
+                <div
+                  class="text-2xl sm:text-3xl font-extrabold text-primary"
+                  data-count={stat.value}
+                  data-suffix={stat.suffix}
+                >
+                  0{stat.suffix}
+                </div>
+                <div class="text-xs text-text-light mt-1 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Right: Skills -->
+      <div class="reveal reveal-delay-2">
+        <h3 class="text-lg font-bold text-secondary mb-6">My Skills</h3>
+        <div class="space-y-4">
+          {
+            skills.map((skill) => (
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="font-semibold text-secondary">{skill.name}</span>
+                  <span class="text-text-light">{skill.level}%</span>
+                </div>
+                <div class="h-2.5 bg-background rounded-full overflow-hidden border border-border/40">
+                  <div
+                    class="h-full bg-gradient-to-r from-primary to-primary-light rounded-full transition-all duration-1000"
+                    style={`width: ${skill.level}%`}
+                  />
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Skill tags -->
+        <div class="mt-8 flex flex-wrap gap-2">
+          {
+            [
+              "Git",
+              "Responsive Design",
+              "REST APIs",
+              "MySQL",
+              "Figma",
+              "Performance",
+            ].map((tag) => (
+              <span class="px-3 py-1.5 bg-primary/5 text-primary text-xs font-medium rounded-full border border-primary/10">
+                {tag}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

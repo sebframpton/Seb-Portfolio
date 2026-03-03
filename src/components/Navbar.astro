@@ -1,0 +1,188 @@
+---
+
+---
+
+<nav
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  data-transparent="true"
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div
+          class="w-9 h-9 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md group-hover:shadow-lg transition-shadow"
+        >
+          SF
+        </div>
+        <span class="font-bold nav-brand-text transition-colors duration-300">
+          Seb <span class="text-primary-light">Frampton</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-1">
+        <a
+          href="#services"
+          class="nav-link px-3 py-2 text-sm font-medium transition-colors rounded-lg"
+          >Services</a
+        >
+        <a
+          href="#projects"
+          class="nav-link px-3 py-2 text-sm font-medium transition-colors rounded-lg"
+          >Projects</a
+        >
+        <a
+          href="#testimonials"
+          class="nav-link px-3 py-2 text-sm font-medium transition-colors rounded-lg"
+          >Testimonials</a
+        >
+        <a
+          href="#about"
+          class="nav-link px-3 py-2 text-sm font-medium transition-colors rounded-lg"
+          >About</a
+        >
+        <a
+          href="#contact"
+          class="ml-2 px-5 py-2 text-sm font-semibold text-white bg-primary hover:bg-primary-dark rounded-full transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+        >
+          Get in Touch
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg transition-colors"
+        aria-label="Toggle menu"
+      >
+        <span class="w-5 h-0.5 transition-all duration-300 nav-bar" id="bar1"
+        ></span>
+        <span class="w-5 h-0.5 transition-all duration-300 nav-bar" id="bar2"
+        ></span>
+        <span class="w-5 h-0.5 transition-all duration-300 nav-bar" id="bar3"
+        ></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden bg-white/95 backdrop-blur-lg border-t border-border/50"
+  >
+    <div class="px-4 py-4 space-y-1">
+      <a
+        href="#services"
+        class="block px-3 py-2.5 text-sm font-medium text-text-light hover:text-primary hover:bg-primary/5 rounded-lg transition-colors mobile-link"
+        >Services</a
+      >
+      <a
+        href="#projects"
+        class="block px-3 py-2.5 text-sm font-medium text-text-light hover:text-primary hover:bg-primary/5 rounded-lg transition-colors mobile-link"
+        >Projects</a
+      >
+      <a
+        href="#testimonials"
+        class="block px-3 py-2.5 text-sm font-medium text-text-light hover:text-primary hover:bg-primary/5 rounded-lg transition-colors mobile-link"
+        >Testimonials</a
+      >
+      <a
+        href="#about"
+        class="block px-3 py-2.5 text-sm font-medium text-text-light hover:text-primary hover:bg-primary/5 rounded-lg transition-colors mobile-link"
+        >About</a
+      >
+      <a
+        href="#contact"
+        class="block px-3 py-2.5 text-sm font-semibold text-center text-white bg-primary hover:bg-primary-dark rounded-full transition-colors mt-2 mobile-link"
+        >Get in Touch</a
+      >
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Transparent state (on hero) */
+  nav[data-transparent="true"] {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+  nav[data-transparent="true"] .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  nav[data-transparent="true"] .nav-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  nav[data-transparent="true"] .nav-brand-text {
+    color: white;
+  }
+  nav[data-transparent="true"] .nav-bar {
+    background-color: white;
+  }
+
+  /* Solid state (scrolled) */
+  nav[data-transparent="false"] {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  }
+  nav[data-transparent="false"] .nav-link {
+    color: var(--color-text-light);
+  }
+  nav[data-transparent="false"] .nav-link:hover {
+    color: var(--color-primary);
+    background: rgba(37, 99, 235, 0.05);
+  }
+  nav[data-transparent="false"] .nav-brand-text {
+    color: var(--color-secondary);
+  }
+  nav[data-transparent="false"] .nav-bar {
+    background-color: var(--color-secondary);
+  }
+</style>
+
+<script>
+  const nav = document.getElementById("navbar");
+  const btn = document.getElementById("mobile-menu-btn");
+  const menu = document.getElementById("mobile-menu");
+  const bar1 = document.getElementById("bar1");
+  const bar2 = document.getElementById("bar2");
+  const bar3 = document.getElementById("bar3");
+  let isOpen = false;
+
+  // Scroll-based transparency
+  const updateNav = () => {
+    const scrollY = window.scrollY;
+    if (nav) {
+      nav.dataset.transparent = scrollY < 80 ? "true" : "false";
+    }
+  };
+  window.addEventListener("scroll", updateNav, { passive: true });
+  updateNav();
+
+  btn?.addEventListener("click", () => {
+    isOpen = !isOpen;
+    menu?.classList.toggle("hidden");
+    if (isOpen) {
+      bar1!.style.transform = "rotate(45deg) translate(3px, 3px)";
+      bar2!.style.opacity = "0";
+      bar3!.style.transform = "rotate(-45deg) translate(3px, -3px)";
+    } else {
+      bar1!.style.transform = "";
+      bar2!.style.opacity = "1";
+      bar3!.style.transform = "";
+    }
+  });
+
+  document.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      menu?.classList.add("hidden");
+      isOpen = false;
+      bar1!.style.transform = "";
+      bar2!.style.opacity = "1";
+      bar3!.style.transform = "";
+    });
+  });
+</script>
